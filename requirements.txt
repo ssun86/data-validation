@@ -3,3 +3,4 @@ uvicorn==0.29.0
 fastapi==0.111.0
 mysql-connector-python==9.1.0
 loguru
+tqdm
