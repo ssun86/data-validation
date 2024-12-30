@@ -73,7 +73,7 @@ async def execute_search_task(task_name: str) -> Dict[str, Any]:
     async def search_task():
         if task_name == "seriesId":
             results["data"]["series_ids"] = await search_engine.search_data("series")
-        elif task_name == "product":
+        elif task_name == "productId":
             results["data"]["product_ids"] = await search_engine.search_data("product")
 
     await asyncio.gather(search_task())
@@ -91,4 +91,4 @@ async def seriesId() -> Any:
 
 @router.post("/product")
 async def product() -> Any:
-    return await execute_search_task("product")
+    return await execute_search_task("productId")

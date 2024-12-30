@@ -57,6 +57,10 @@ class SearchEngine:
 
         # 比较ID集合是否一致
         ids_match = self.compare_ids(table_name, mysql_ids, mongo_ids)
+
+        #compare field and value.
+        #TODO
+
         self.mysql_connector.close()
 
         return ids_match
@@ -94,6 +98,16 @@ class SearchEngine:
 
         cursor.close()
         return mysql_ids
+
+    def fetch_mysql_by_id(
+            self, table_name
+    ):
+        return None
+
+    def fetch_mongo_by_id(
+            self, table_name
+    ):
+        return None
 
     def fetch_mongo_data(
         self, table_name, schedule_end_time=1733998924, batch_size=5000
