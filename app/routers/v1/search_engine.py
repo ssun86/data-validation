@@ -61,12 +61,13 @@ class SearchEngine:
         #compare field and value.
         #TODO
 
+
         self.mysql_connector.close()
 
         return ids_match
 
     def fetch_mysql_data(
-        self, table_name, schedule_end_time=1733998924, batch_size=5000
+        self, table_name, schedule_end_time=1735268309, batch_size=5000
     ):
         # 连接到MySQL数据库
 
@@ -110,7 +111,7 @@ class SearchEngine:
         return None
 
     def fetch_mongo_data(
-        self, table_name, schedule_end_time=1733998924, batch_size=5000
+        self, table_name, schedule_end_time=1735268309, batch_size=5000
     ):
 
         last_id = None
