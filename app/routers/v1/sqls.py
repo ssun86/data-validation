@@ -170,11 +170,50 @@ WITH product_base AS (
     GROUP BY product_id
     )
 
-SELECT pb.product_id AS _id, pb.product_id, pb.series_id, pb.number, pb.free_time
-            , pb.premium_time, pb.is_free_premium_time, pb.cover_image_uri, pb.landscape_image, pb.portrait_image
-            , pb.synopsis, pb.source_flag, pb.area_id, pb.language_flag_id, pb.description
-            , pb.schedule_start_time, pb.schedule_end_time, pb.is_produced, pb.is_deleted, pb.keyword
-            , pigt.guest_tag_names
+SELECT 
+    pb.product_id AS _id, 
+    pb.product_id,
+    pb.series_id,
+    pb.number,
+    pb.synopsis,
+    pb.description,
+    pb.cover_image_uri,
+    pb.time_duration,
+    pb.schedule_start_time,
+    pb.schedule_end_time,
+    pb.free_time,
+    pb.premium_time,
+    pb.is_free_premium_time,
+    pb.allow_download,
+    LOWER(pb.keyword) AS keyword,
+    pb.is_produced,
+    pb.is_deleted,
+    pb.is_parental_lock_limited,
+    pb.is_parental_lock_compulsory,
+    pb.last_modified_time,
+    pb.area_id,
+    pb.language_flag_id,
+    pb.censorship_ads_id,
+    pb.allow_play_big_screen,
+    pb.play_big_screen_start_time,
+    pb.play_big_screen_end_time,
+    pb.duration_start,
+    pb.source_flag,
+    pb.third_product_id,
+    pb.seo_title,
+    pb.seo_description,
+    pb.chargingcp_id,
+    pb.classification,
+    pb.encryption_string,
+    pb.multiple_image,
+    pb.landscape_image,
+    pb.portrait_image,
+    pb.skip_intro_start_time,
+    pb.skip_intro_end_time,
+    pb.content_advisory,
+    pb.drm,
+    pb.dpr,
+    pigt.guest_tag_names
 FROM product_base pb
     LEFT JOIN product_id_to_guest_tags pigt ON pb.product_id = pigt.product_id
 WHERE pb.product_id in ({})
