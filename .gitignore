@@ -1,4 +1,5 @@
 .idea/
+temp/
 /product_id_mismatch.txt
 /series_id_mismatch.txt
 /.vscode

@@ -60,7 +60,7 @@ class SearchEngine:
 
         #compare field and value.
         #TODO
-
+        self.compare_feilds(table_name, mysql_ids, mongo_ids)
 
         self.mysql_connector.close()
 
@@ -172,6 +172,10 @@ class SearchEngine:
                 mongo_ids.add(str(doc["_id"]))  # 将ID转换为字符串，以匹配MySQL的ID格式
 
         return mongo_ids
+
+    def compare_feilds(self, table_name, mysql_ids, mongo_ids):
+
+        return None
 
     def compare_ids(self, table_name, mysql_ids, mongo_ids):
         if mysql_ids != mongo_ids:
