@@ -1,0 +1,150 @@
+# Search API Server Configuration
+server:
+  # Server listen address
+  address: ":8080"
+  production: true
+  debug:
+    pprof:
+      enabled: false
+      address: ":6060"
+  # Optional TLS configuration
+  tls:
+    enabled: false
+    cert_file: ""
+    key_file: ""
+  worker_pool:
+    search:
+      num_workers: 8000
+    predict:
+      num_workers: 8000
+  search:
+    timeout_seconds: 12
+    max_keyword_length: 30
+    default_limit: 20
+  predict:
+    timeout_seconds: 12
+    max_keyword_length: 30
+    max_pipeline_limit: 16
+    max_series_limit: 5
+    max_tag_actors_limit: 5
+
+# MongoDB Configuration
+mongodb:
+  # MongoDB connection URI
+  uri: "mongodb://localhost:27017"
+  # Database name
+  database: "search"
+  timeout_seconds: 30
+  # Collections configuration
+  collections:
+    series: "series"
+    product: "product"
+    tag_actor: "tag_actor"
+    series_category_relation: "series_category_relation"
+    category: "category"
+  # Connection pool settings
+  pool:
+    min_size: 5
+    max_size: 100
+    timeout_seconds: 30
+  # Authentication (optional)
+  auth:
+    username: ""
+    password: ""
+    auth_source: "admin"
+
+# Logging Configuration
+logging:
+  level: "warn"  # debug, info, warn, error
+  format: "json" # json or text
+  output: "stdout" # stdout, s3
+  s3Bucket: "your-log-bucket"
+  s3Prefix: "logs/search-api"
+  s3BufferSize: 1048576  # 1MB buffer size
+
+# API Configuration
+api:
+  # Rate limiting
+  rate_limit:
+    enabled: false
+    requests_per_second: 3000
+  # CORS settings
+  cors:
+    enabled: true
+    allowed_origins:
+      - "*"
+    allowed_methods:
+      - "GET"
+    allowed_headers:
+      - "Content-Type"
+
+# Search configuration
+search:
+  image_url: "https://prod-images.viu.com/"
+  fuzzy_threshold: 70
+  product_search:
+    text_fields:
+      - Synopsis
+      - Keyword
+      - GuestTagNames
+      - Description
+    platforms:
+      web: 1
+      pad: 2
+      phone: 3
+      tv: 4
+    areas:
+      multi_country_area_id:
+        - 1002
+        - 1003
+        - 1004
+      country_code:
+        # GCC (Gulf Cooperation Council) countries
+        YE: 69543  # Yemen
+        SA: 102358 # Saudi Arabia
+        KW: 285570 # Kuwait
+        OM: 286963 # Oman
+        QA: 289688 # Qatar
+        BH: 290291 # Bahrain
+        AE: 290557 # United Arab Emirates
+        # North Africa
+        EG: 357994  # Egypt
+        SD: 366755  # Sudan
+        TN: 2464461 # Tunisia
+        MA: 2542007 # Morocco
+        DZ: 2589581 # Algeria
+        # Levant
+        IQ: 99237   # Iraq
+        JO: 248816  # Jordan
+        LB: 272103  # Lebanon
+        PS: 6254930 # Palestine
+    priority:
+      content_priority:
+        # Drama & Series
+        "剧": 99
+        "劇": 99
+        "Drama": 99
+        "Original": 99
+        "Series": 99
+        # Dubbing
+        "Dubbed": 50
+        "Dubbing": 50
+        "配音": 50
+        "Thai Dubbing": 49
+        "ซีรีส์พากย์ไทย": 49
+        "Kr Variety Dubbing": 48
+        "วาไรตี้เกาหลีพากย์ไทย": 48
+        "CN-Th Dubbing": 47
+        "ซีรีส์จีนพากย์ไทย": 47
+        "I-Sarn Dubbing": 46
+        "ซีรีส์พากย์เสียงอีสาน": 46
+        "North Dubbing": 45
+        "ซีรีส์พากย์เสียงเหนือ": 45
+        # Others
+        "Sign Language": 44
+        "Highlight": 43
+        "Trailer": 10
+        "วิดีโอตัวอย่าง": 10
+        "預告": 10
+        "花絮": 10
+        "预告": 10
