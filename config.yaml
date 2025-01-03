@@ -99,25 +99,37 @@ search:
         - 1003
         - 1004
       country_code:
-        # GCC (Gulf Cooperation Council) countries
-        YE: 69543  # Yemen
-        SA: 102358 # Saudi Arabia
-        KW: 285570 # Kuwait
-        OM: 286963 # Oman
-        QA: 289688 # Qatar
-        BH: 290291 # Bahrain
-        AE: 290557 # United Arab Emirates
-        # North Africa
-        EG: 357994  # Egypt
-        SD: 366755  # Sudan
-        TN: 2464461 # Tunisia
-        MA: 2542007 # Morocco
-        DZ: 2589581 # Algeria
-        # Levant
-        IQ: 99237   # Iraq
-        JO: 248816  # Jordan
-        LB: 272103  # Lebanon
-        PS: 6254930 # Palestine
+        HK: 1819730 #Hong Kong
+        SG: 1880251 #Singapore
+        TH: 1605651 #Thailand
+        PH: 1694008 #Philippines
+        AU: 2077456 #Australia
+        NZ: 2186224 #New Zealand
+        ID: 1643084 #Indonesia
+        MY: 1733045 #Malaysia
+        #Gulf Co-operation Council (GCC)
+        OM: 286963  #Oman
+        KW: 285570  #Kuwait
+        BH: 290291  #Bahrain
+        SA: 953987  #Saudi Arabia
+        QA: 289688  #Qatar
+        YE: 69543   #Yemen
+        AE: 290557  #United Arabs Emirates
+        #North Africa
+        EG: 357994  #Egypt
+        MA: 2542007 #Morocco
+        SD: 366755  #Sudan
+        TN: 2464461 #Tunisia
+        DZ: 2589581 #Algeria
+        #Levant
+        IQ: 99237   #Iraq
+        LB: 272103  #Lebanon
+        PS: 6254930 #Palestine
+        JO: 248816  #Jordan
+        #Myanmar
+        MM: 1327865 #Myanmar
+        #South Africa
+        ZA: 953987  #South Africa
     priority:
       content_priority:
         # Drama & Series
