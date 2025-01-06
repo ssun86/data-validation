@@ -112,9 +112,9 @@ class SearchEngine:
         params = (id,)
 
         if table_name == "product":
-            query = "SELECT * FROM product WHERE product_id = %s"
+            query = "SELECT product_id,last_modified_time FROM product WHERE product_id = %s"
         elif table_name == "series":
-            query = "SELECT * FROM series WHERE series_id = %s"
+            query = "SELECT series_id,last_modified_time FROM series WHERE series_id = %s"
 
         if query is None:
             return None
