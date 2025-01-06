@@ -59,8 +59,7 @@ class SearchEngine:
         ids_match = self.compare_ids(table_name, mysql_ids, mongo_ids)
 
         #compare field and value.
-        #TODO
-        self.compare_feilds(table_name, mysql_ids, mongo_ids)
+        self.compare_fields(table_name, mysql_ids)
 
         self.mysql_connector.close()
 
@@ -100,15 +99,46 @@ class SearchEngine:
         cursor.close()
         return mysql_ids
 
-    def fetch_mysql_by_id(
-            self, table_name
-    ):
-        return None
+    def fetch_mysql_by_id(self, table_name, id):
+        cursor = self.mysql_connector.get_cursor()
+        query = None
+        params = (id,)
 
-    def fetch_mongo_by_id(
-            self, table_name
-    ):
-        return None
+        if table_name == "product":
+            query = "SELECT * FROM product WHERE product_id = %s"
+        elif table_name == "series":
+            query = "SELECT * FROM series WHERE series_id = %s"
+
+        if query is None:
+            return None
+        try:
+            cursor.execute(query, params)
+            results = cursor.fetchall()
+            if not results:
+                return None
+            return results[0]
+        except Exception as e:
+            return None
+        finally:
+            cursor.close()
+
+
+    def fetch_mongo_by_id(self, table_name, id):
+        # 获取对应的collection
+        collection = getattr(self, f"{table_name}_collection", None)
+        if collection is None:
+            raise ValueError(f"Invalid table name: {table_name}")
+
+        # 构建查询条件
+        query = {"_id": id}
+
+        # 查询记录，并只保留 _id 和 last_modified_time 字段
+        projection = {"_id": 1, "last_modified_time": 1}
+
+        record = collection.find_one(query, projection=projection)
+
+        return record
+
 
     def fetch_mongo_data(
         self, table_name, schedule_end_time=1735268309, batch_size=5000
@@ -173,9 +203,26 @@ class SearchEngine:
 
         return mongo_ids
 
-    def compare_feilds(self, table_name, mysql_ids, mongo_ids):
+    def compare_fields(self, table_name, mysql_ids):
+        logger.info("compare fields start !")
 
-        return None
+        for id in mysql_ids:
+            row_in_mysql = self.fetch_mysql_by_id(table_name, id)
+            if row_in_mysql is None:
+                continue
+
+            row_in_mongo = self.fetch_mongo_by_id(table_name, id)
+            if row_in_mongo is None:
+                continue
+
+            if row_in_mongo.last_modified_time == row_in_mysql.last_modified_time:
+                continue
+
+            filename = f"{table_name}_last_modified_time_mismatch.txt"
+            with open(filename, "w") as file:
+                file.write(f"{id}\n")
+
+        logger.info("compare fields end !")
 
     def compare_ids(self, table_name, mysql_ids, mongo_ids):
         if mysql_ids != mongo_ids:
