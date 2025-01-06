@@ -50,16 +50,23 @@ class SearchEngine:
 
     async def search_data(self, table_name: str) -> bool:
         self.mysql_connector.connect()
+        logger.info("get ids start !")
 
         # 获取mysql id
         mysql_ids = self.fetch_mysql_data(table_name)
         mongo_ids = self.fetch_mongo_data(table_name)
 
+        logger.info("get ids end !")
+
         # 比较ID集合是否一致
+        logger.info("compare ids start !")
         ids_match = self.compare_ids(table_name, mysql_ids, mongo_ids)
+        logger.info("compare ids end !")
 
         #compare field and value.
+        logger.info("compare fields start !")
         self.compare_fields(table_name, mysql_ids)
+        logger.info("compare fields end !")
 
         self.mysql_connector.close()
 
