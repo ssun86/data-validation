@@ -226,7 +226,7 @@ class SearchEngine:
                 continue
 
             filename = f"{table_name}_last_modified_time_mismatch.txt"
-            with open(filename, "w") as file:
+            with open(filename, "a") as file:
                 file.write(f"{id}\n")
 
         logger.info("compare fields end !")
