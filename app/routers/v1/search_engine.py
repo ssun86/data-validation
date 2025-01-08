@@ -73,7 +73,7 @@ class SearchEngine:
         return ids_match
 
     def fetch_mysql_data(
-        self, table_name, schedule_end_time=1735268309, batch_size=5000
+        self, table_name, schedule_end_time=1736219420, batch_size=5000
     ):
         # 连接到MySQL数据库
 
@@ -148,7 +148,7 @@ class SearchEngine:
 
 
     def fetch_mongo_data(
-        self, table_name, schedule_end_time=1735268309, batch_size=5000
+        self, table_name, schedule_end_time=1736219420, batch_size=5000
     ):
 
         last_id = None
