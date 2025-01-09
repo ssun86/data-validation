@@ -212,7 +212,7 @@ class SearchEngine:
 
     def compare_fields(self, table_name, mysql_ids):
         logger.info("compare fields start !")
-
+        count = 0
         for id in mysql_ids:
             row_in_mysql = self.fetch_mysql_by_id(table_name, id)
             if row_in_mysql is None:
@@ -225,9 +225,15 @@ class SearchEngine:
             if row_in_mongo.last_modified_time == row_in_mysql.last_modified_time:
                 continue
 
+            count = count + 1
             filename = f"{table_name}_last_modified_time_mismatch.txt"
             with open(filename, "a") as file:
                 file.write(f"{id}\n")
+
+
+        filename = f"{table_name}_last_modified_time_mismatch_count.txt"
+        with open(filename, "w") as file:
+            file.write(f"{table_name} mismatch count: {count}  (last_modified)\n")
 
         logger.info("compare fields end !")
 
